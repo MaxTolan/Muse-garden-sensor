@@ -7,7 +7,7 @@ aggressive deep sleep instead of a large panel and battery bank.
 Status: planning only. Nothing has been purchased. Prices are estimates observed
 on October 14, 2026, before tax and shipping.
 
-## Build 1: ToughC5 multi-zone station (under $300)
+## Build 1: ToughC5 multi-zone station (~$272, under the $300 cap)
 
 The M5Stack ToughC5 (ESP32-C5) stays as the field gateway and local display, but
 the sensor stack moves to low-cost analog, I2C, and 1-Wire parts:
@@ -25,11 +25,16 @@ the sensor stack moves to low-cost analog, I2C, and 1-Wire parts:
 | Adafruit bq24074 solar charger with load sharing | 1 | $14.95 |
 | 6 V 2 W ETFE solar panel | 1 | $26.19 |
 | Protected 18650, 3.7 V 2200 mAh | 1 | $9.95 |
-| **Priced core** | | **$190.43** |
-
-That leaves $109.57 under the $300 cap for site hardware: outdoor enclosure,
-cable glands, wiring harnesses, mounting, and connectors. Do not call it a
-complete sub-$300 build until those are measured and priced.
+| Outdoor IP65 enclosure | 1 | $12.00 |
+| PG7 cable glands, 5-pack | 1 | $10.00 |
+| HY2.0-4P cable pack | 1 | $7.00 |
+| RJ11 breakout board | 1 | $10.00 |
+| Silicone hookup wire | 1 | $10.00 |
+| Standoff kit | 1 | $8.00 |
+| Mounting hardware | 1 | $12.00 |
+| TVS/ESD protection parts | 1 | $5.00 |
+| UV protection | 1 | $8.00 |
+| **Total** | | **~$272** |
 
 Wiring: three moisture probes feed ADS1115 channels A0-A2 (power the probes only
 while sampling); SHT40 and VEML7700 share the 3.3 V I2C bus; DS18B20 on one GPIO
@@ -38,7 +43,7 @@ with its 4.7k pull-up; rain gauge on a GPIO with pull-up and debounce. Wake ever
 and sleep with the display off. A continuously-on ToughC5 draws far more than the
 small panel can supply, so sleep is non-negotiable.
 
-## Build 2: 27-gallon sub-irrigated planter node (~$62+)
+## Build 2: 27-gallon sub-irrigated planter node (~$111)
 
 A sub-irrigated planter answers one practical question first: does the reservoir
 need water? So the key sensor is a float switch at the refill level, with soil
@@ -47,19 +52,26 @@ moisture as backup (capillary beds can read moist above an emptying reservoir).
 | Part | Qty | Est. |
 |---|---|---|
 | Seeed XIAO ESP32-C3 (~44 uA deep sleep) | 1 | $4.90 |
-| Reed float switch, reservoir level | 1 | not verified |
+| Reed float switch, reservoir level | 1 | ~$15.00 * |
 | DFRobot SEN0193 capacitive soil moisture | 1 | $5.90 |
 | Adafruit bq24074 solar charger | 1 | $14.95 |
 | 6 V 2 W ETFE solar panel | 1 | $26.19 |
 | Protected 18650, 3.7 V 2200 mAh | 1 | $9.95 |
-| **Known-price base (excl. float)** | | **$61.89** |
+| Small outdoor enclosure | 1 | $10.00 |
+| Cable glands | 1 | $4.00 |
+| Load-switch MOSFET and resistors | 1 | $4.00 |
+| Wire and connectors | 1 | $8.00 |
+| Planter mounting | 1 | $8.00 |
+| **Total** | | **~$111** |
 | Optional DS18B20 soil temperature | 1 | $9.95 |
 
-The float switch was deliberately left unpriced: no dependable single-unit US
-retail price was verified. Wake every 30 minutes, read float and soil, and
-transmit only on a meaningful state change or scheduled heartbeat. Alert once
-when the reservoir drops to the refill level, suppress repeats until it returns
-to full, and require two consecutive readings before alerting.
+\* The float switch is the least certain line: no dependable single-unit US
+retail price was verified. With the optional temperature probe, about $121.
+
+Wake every 30 minutes, read float and soil, and transmit only on a meaningful
+state change or scheduled heartbeat. Alert once when the reservoir drops to the
+refill level, suppress repeats until it returns to full, and require two
+consecutive readings before alerting.
 
 ## Power notes (both builds)
 
@@ -76,6 +88,6 @@ to full, and require two consecutive readings before alerting.
 
 ## Docs
 
-A detailed 7-page build document with full wiring tables, the power math,
+A detailed build document with full wiring tables, the power math,
 commissioning gates, and decision notes is saved with this project as the
 reference file.
